@@ -24,7 +24,6 @@ public class App {
             e.printStackTrace();
         }
     }
-
     private static void headerMethod() {
 
         try {
