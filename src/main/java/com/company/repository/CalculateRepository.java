@@ -10,13 +10,13 @@ import java.util.Optional;
 
 public class CalculateRepository {
 
-    public static final String DB_USERNAME = "higselmbwgerqe";
-    public static final String DB_PASSWORD = "de82a1cb482af42f77b41c8c868611600d2f64f57675cf674d08af1f7c05c921";
-    public static final String DB_URL = "jdbc:postgresql://ec2-35-170-146-54.compute-1.amazonaws.com:5432/dej1c86jkjt528";
+    public static final String DB_USERNAME = "dkvtodzlyatwel";
+    public static final String DB_PASSWORD = "9c7a272365b6450301f73e091193d0e0a2fda28f78b73cb0476b997baa957b73";
+    public static final String DB_URL = "jdbc:postgresql://ec2-63-32-248-14.eu-west-1.compute.amazonaws.com:5432/d325g5rfibvhk0";
     public static Connection connection;
 
 
-    public Optional<CalculateEntity> getCalculate(CalculateEntity calculate){
+    public Optional<CalculateEntity> getCalculate(CalculateEntity calculate) {
 
         List<CalculateEntity> calculateEntities = new ArrayList<>();
 
@@ -28,8 +28,8 @@ public class CalculateRepository {
 //                    "customer(id, username, phone_number, language, hobby_id, gender, status, role) \nVALUES (" +
 //                    +user.getId() + ", '" + user.getUsername() + "', null, null, null ,null,'NEW','REGISTER' );";
 
-            String query = "SELECT * FROM calc WHERE profile_id = "+calculate.getProfileId()
-                    +" AND status = '"+calculate.getStatus()+"' AND category_id = "+calculate.getCategoryId()+" ;";
+            String query = "SELECT * FROM calc WHERE profile_id = " + calculate.getProfileId()
+                    + " AND status = '" + calculate.getStatus() + "' AND category_id = " + calculate.getCategoryId() + " ;";
 
             ResultSet resultSet = statement.executeQuery(query);
             connection.close();
@@ -46,7 +46,7 @@ public class CalculateRepository {
                 String status = resultSet.getString("status");
                 int profile_id = resultSet.getInt("profile_id");
 
-                CalculateEntity calculate1 = new CalculateEntity(id,toId,value1,value2,value3, CategoryStatus.valueOf(status),profile_id);
+                CalculateEntity calculate1 = new CalculateEntity(id, toId, value1, value2, value3, CategoryStatus.valueOf(status), profile_id);
                 calculateEntities.add(calculate1);
 
             }
@@ -61,28 +61,20 @@ public class CalculateRepository {
 
     public void save(CalculateEntity calculate) {
 
-        String query = "INSERT INTO calc (profile_id,status,category_id, value1, value2, value3)" +
-                "values("+calculate.getProfileId()+",'"+calculate.getStatus().name()+"',"+calculate.getCategoryId()
-                +", "+calculate.getValue1()+", "+calculate.getValue2()+", "+calculate.getValue3()+");";
-
-//        PreparedStatementSetter preparedStatementSetter = ps -> {
-//            ps.setInt(1, calculate.getProfileId());
-//            ps.setString(2, calculate.getStatus().name());
-//            ps.setInt(3, calculate.getCategoryId());
-//            ps.setDouble(4,calculate.getValue1());
-//            ps.setDouble(5,calculate.getValue2());
-//            ps.setDouble(6,calculate.getValue3());
-//        };
-//
-//        jdbcTemplate.update(query, preparedStatementSetter);
-
+        String query = "INSERT INTO calc(profile_id,status,category_id, value1, value2, value3) " +
+                " values(" + calculate.getProfileId() + " , " +
+                "'" + calculate.getStatus().name() + "' , " +
+                 + calculate.getCategoryId() + " , " +
+                calculate.getValue1() + " , " +
+                calculate.getValue2() + " , " +
+                calculate.getValue3() + ");";
 
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
             Statement statement = connection.createStatement();
 
-
             int i = statement.executeUpdate(query);
+            System.out.println(i);
             connection.close();
 
         } catch (SQLException e) {

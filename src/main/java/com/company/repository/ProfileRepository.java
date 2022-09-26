@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public class ProfileRepository {
 
-    public static final String DB_USERNAME = "higselmbwgerqe";
-    public static final String DB_PASSWORD = "de82a1cb482af42f77b41c8c868611600d2f64f57675cf674d08af1f7c05c921";
-    public static final String DB_URL = "jdbc:postgresql://ec2-35-170-146-54.compute-1.amazonaws.com:5432/dej1c86jkjt528";
+    public static final String DB_USERNAME = "dkvtodzlyatwel";
+    public static final String DB_PASSWORD = "9c7a272365b6450301f73e091193d0e0a2fda28f78b73cb0476b997baa957b73";
+    public static final String DB_URL = "jdbc:postgresql://ec2-63-32-248-14.eu-west-1.compute.amazonaws.com:5432/d325g5rfibvhk0";
     public static Connection connection;
 
     public Optional<ProfileEntity> findByUserId(String userId) {
@@ -39,6 +39,7 @@ public class ProfileRepository {
                 boolean visible = resultSet3.getBoolean("visible");
 
                 ProfileEntity profile = new ProfileEntity(id, phoneNumber, user_id, u_name, visible, ProfileStatus.valueOf(status), Language.valueOf(lang));
+                System.out.println("profile =00 " + profile);
                 return Optional.of(profile);
             }
 
@@ -68,13 +69,22 @@ public class ProfileRepository {
     }
 
     public void update(ProfileEntity profile) {
-        System.out.println("profile = " + profile);
 
         String sql = "UPDATE profile" +
                 " SET status = '" + profile.getStatus().name() + "', lang = '" + profile.getLanguage().name() + "'," +
                 " phone_number = '" + profile.getPhoneNumber() + "'" +
                 " WHERE id = " + profile.getId() + ";";
 
+        try (Statement statement = connection.createStatement()) {
+
+
+            int i = statement.executeUpdate(sql);
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 }
