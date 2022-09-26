@@ -6,8 +6,6 @@ import com.company.service.ProfileService;
 import com.company.service.SendMessageService;
 import com.company.utils.DemoUtil;
 import com.company.utils.InlineKeyboardUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.*;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -21,14 +19,11 @@ import java.util.Optional;
 import static com.company.utils.ComponentContainer.BOT_TOKEN;
 import static com.company.utils.ComponentContainer.BOT_USERNAME;
 
-@Controller
 public class MainController extends TelegramLongPollingBot {
 
-    @Autowired
-    private SendMessageService sendMessageService;
+    public final SendMessageService sendMessageService = new SendMessageService();
 
-    @Autowired
-    private ProfileService profileService;
+    public final ProfileService profileService = new ProfileService();
 
     @Override
     public String getBotUsername() {

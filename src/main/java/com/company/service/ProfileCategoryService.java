@@ -6,18 +6,12 @@ import com.company.entity.ProfileEntity;
 import com.company.enums.CategoryStatus;
 import com.company.enums.Language;
 import com.company.repository.CalculateRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
-@Service
 public class ProfileCategoryService {
 
-    @Autowired
-    private CalculateRepository calculateRepository;
-    @Autowired
-    private SendMessageService sendMessageService;
+    private final CalculateRepository calculateRepository = new CalculateRepository();
+    private final SendMessageService sendMessageService = new SendMessageService();
 
     public void calc(Integer categoryId, ProfileEntity profile){
 

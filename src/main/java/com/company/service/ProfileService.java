@@ -10,9 +10,6 @@ import com.company.utils.DemoUtil;
 import com.company.utils.InlineKeyboardUtil;
 import com.company.utils.ReplyKeyboardUtil;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Contact;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.User;
@@ -20,20 +17,15 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import java.util.Optional;
 
 @Setter
-@Service
 public class ProfileService {
 
     private Message message;
     private User user;
 
-    @Autowired
-    private ProfileRepository profileRepository;
-    @Autowired
-    private ProfileCategoryService profileCategoryService;
+    private ProfileRepository profileRepository = new ProfileRepository();
+    private ProfileCategoryService profileCategoryService = new ProfileCategoryService();
 
-    @Autowired
-    @Lazy
-    private SendMessageService sendMessageService;
+    private SendMessageService sendMessageService = new SendMessageService();
 
     public Optional<ProfileEntity> getUserById(String userId) {
 
