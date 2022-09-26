@@ -53,7 +53,7 @@ public class MainController extends TelegramLongPollingBot {
             Optional<ProfileEntity> userById = profileService.getUserById(String.valueOf(userId));
             if (message.hasText()) {
 
-                if (userById.isEmpty() && message.getText().equals("/start")) {
+                if (!userById.isPresent() && message.getText().equals("/start")) {
                     sendMessageService.sendMessage(DemoUtil.CHANGE_LANGUAGE_RU, userId, InlineKeyboardUtil.getLanguageMenu());
                 } else if (userById.isPresent() && message.getText().equals("/refresh")) {
                     profileService.refresh(userById.get());
