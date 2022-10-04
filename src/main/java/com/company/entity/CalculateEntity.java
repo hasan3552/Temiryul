@@ -16,6 +16,8 @@ public class CalculateEntity {
     private Double value1;
     private Double value2;
     private Double value3;
+    private Double value4;
+    private Double value5;    // CRUD   database
     private CategoryStatus status = CategoryStatus.ACTIVE;
     private Integer profileId;
 

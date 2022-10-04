@@ -27,8 +27,8 @@ public class ProfileCategoryService {
 
 
         sendMessageService.sendMessage(profile.getLanguage().equals(Language.UZ) ?
-                "<b>Iltimos qiymatlarni ushbu ketma-ketlikda kiriting:</b> \n\n value1/value2/valu3" :
-                "<b>Введите значения в следующем порядке:</b> \n\n value1/value2/value3", Long.valueOf(profile.getUserId()));
+                "<b>Iltimos qiymatlarni ushbu ketma-ketlikda kiriting:</b> \n\n value1/value2/value3/value4/value5" :
+                "<b>Введите значения в следующем порядке:</b> \n\n value1/value2/value3/value4/value5", Long.valueOf(profile.getUserId()));
 
     }
 

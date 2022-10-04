@@ -103,26 +103,46 @@ public class ProfileService {
         double v1 = Double.parseDouble(text.split("/")[0]);
         double v2 = Double.parseDouble(text.split("/")[1]);
         double v3 = Double.parseDouble(text.split("/")[2]);
+        double v4 = Double.parseDouble(text.split("/")[3]);
+        double v5 = Double.parseDouble(text.split("/")[4]);
 
         CalculateEntity calculate = Database.calculate.get(profile.getUserId());
         calculate.setValue1(v1);
         calculate.setValue2(v2);
         calculate.setValue3(v3);
+        calculate.setValue4(v4);
+        calculate.setValue5(v5);
 
         profileCategoryService.save(calculate);
 
         profile.setStatus(ProfileStatus.ACTIVE);
         profileRepository.update(profile);
 
-        sendCalculate(calculate,profile.getLanguage());
+        sendCalculate(calculate, profile.getLanguage());
 
     }
 
-    private void sendCalculate(CalculateEntity calculate,Language language) {
+    private void sendCalculate(CalculateEntity calculate, Language language) {
 
-        String response = String.valueOf(calculate.getValue1() * calculate.getValue2() * calculate.getValue3());
-        sendMessageService.sendMessage(response,user.getId());
+        //category = 1 = 3 ....   =>      QyKelish = v1   QyJonash = v2   koef = v3   Pj = v4   alfaj = v5
+        //category = 2   =>      QyKelish = v1   QyJonash = v2   koef = v3   bettai = v5   qi = v4
+        double QySutkaKelish = calculate.getValue1() / 365 * calculate.getValue3();
+        double QySutkaJonash = calculate.getValue2() / 365 * calculate.getValue3();
+        double nIJ = QySutkaJonash * calculate.getValue5() / calculate.getValue4();
+        double nIK = QySutkaKelish * calculate.getValue5() / calculate.getValue4();
+
+//        if (calculate.getCategoryId() == 2) {
+//
+//            double kIJ =
+//            double kIK
+//        }
+
+        //  jadvalni chiqaramiz
+        String response = "Q(sutkalik kelish) :"+QySutkaKelish+"\nQ(sutkalik jo'nash) :"+QySutkaJonash+
+                "\nNi(jo'nash) : "+nIJ+"\nNi(kelish) : "+nIK;
+
+        sendMessageService.sendMessage(response, user.getId());
         sendMessageService.sendMessage(language.equals(Language.UZ) ? DemoUtil.CHANGE_CATEGORY_UZ : DemoUtil.CHANGE_CATEGORY_RU,
-                user.getId(),InlineKeyboardUtil.getAllCategory());
+                user.getId(), InlineKeyboardUtil.getAllCategory());
     }
 }

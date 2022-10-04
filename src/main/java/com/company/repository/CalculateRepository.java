@@ -10,9 +10,14 @@ import java.util.Optional;
 
 public class CalculateRepository {
 
-    public static final String DB_USERNAME = "dkvtodzlyatwel";
-    public static final String DB_PASSWORD = "9c7a272365b6450301f73e091193d0e0a2fda28f78b73cb0476b997baa957b73";
-    public static final String DB_URL = "jdbc:postgresql://ec2-63-32-248-14.eu-west-1.compute.amazonaws.com:5432/d325g5rfibvhk0";
+//    public static final String DB_USERNAME = "dkvtodzlyatwel";
+//    public static final String DB_PASSWORD = "9c7a272365b6450301f73e091193d0e0a2fda28f78b73cb0476b997baa957b73";
+//    public static final String DB_URL = "jdbc:postgresql://ec2-63-32-248-14.eu-west-1.compute.amazonaws.com:5432/d325g5rfibvhk0";
+
+    public static final String DB_USERNAME = "postgres";
+    public static final String DB_PASSWORD = "hasan";
+    public static final String DB_URL = "jdbc:postgresql://localhost:5432/train";
+
     public static Connection connection;
 
 
@@ -43,10 +48,12 @@ public class CalculateRepository {
                 double value1 = resultSet.getDouble("value1");
                 double value2 = resultSet.getDouble("value2");
                 double value3 = resultSet.getDouble("value3");
+                double value4 = resultSet.getDouble("value4");
+                double value5 = resultSet.getDouble("value5");
                 String status = resultSet.getString("status");
                 int profile_id = resultSet.getInt("profile_id");
 
-                CalculateEntity calculate1 = new CalculateEntity(id, toId, value1, value2, value3, CategoryStatus.valueOf(status), profile_id);
+                CalculateEntity calculate1 = new CalculateEntity(id, toId, value1, value2, value3,value4,value5, CategoryStatus.valueOf(status), profile_id);
                 calculateEntities.add(calculate1);
 
             }
@@ -61,13 +68,15 @@ public class CalculateRepository {
 
     public void save(CalculateEntity calculate) {
 
-        String query = "INSERT INTO calc(profile_id,status,category_id, value1, value2, value3) " +
+        String query = "INSERT INTO calc(profile_id,status,category_id, value1, value2, value3, value4, value5) " +
                 " values(" + calculate.getProfileId() + " , " +
                 "'" + calculate.getStatus().name() + "' , " +
                  + calculate.getCategoryId() + " , " +
                 calculate.getValue1() + " , " +
                 calculate.getValue2() + " , " +
-                calculate.getValue3() + ");";
+                calculate.getValue3() + " , " +
+                calculate.getValue4() + " , " +
+                calculate.getValue5() + ");";
 
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
