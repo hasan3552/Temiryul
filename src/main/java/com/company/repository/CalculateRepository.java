@@ -10,13 +10,13 @@ import java.util.Optional;
 
 public class CalculateRepository {
 
-//    public static final String DB_USERNAME = "dkvtodzlyatwel";
-//    public static final String DB_PASSWORD = "9c7a272365b6450301f73e091193d0e0a2fda28f78b73cb0476b997baa957b73";
-//    public static final String DB_URL = "jdbc:postgresql://ec2-63-32-248-14.eu-west-1.compute.amazonaws.com:5432/d325g5rfibvhk0";
-
-    public static final String DB_USERNAME = "postgres";
-    public static final String DB_PASSWORD = "hasan";
-    public static final String DB_URL = "jdbc:postgresql://localhost:5432/train";
+    public static final String DB_USERNAME = "dkvtodzlyatwel";
+    public static final String DB_PASSWORD = "9c7a272365b6450301f73e091193d0e0a2fda28f78b73cb0476b997baa957b73";
+    public static final String DB_URL = "jdbc:postgresql://ec2-63-32-248-14.eu-west-1.compute.amazonaws.com:5432/d325g5rfibvhk0";
+//
+//    public static final String DB_USERNAME = "postgres";
+//    public static final String DB_PASSWORD = "hasan";
+//    public static final String DB_URL = "jdbc:postgresql://localhost:5432/train";
 
     public static Connection connection;
 
